@@ -59,6 +59,107 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                 borderRadius: BorderRadius.circular(Dimensions.radius4)),
           ),
         ),
+        //  Popular text
+        Container(
+          margin: EdgeInsets.only(left: Dimensions.width24),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              BigText(text: 'Popular'),
+              SizedBox(width: Dimensions.width8),
+              Container(
+                margin: const EdgeInsets.only(bottom: 2),
+                child: BigText(text: '.', color: Colors.black54),
+              ),
+              SizedBox(width: Dimensions.width8),
+              Container(
+                margin: const EdgeInsets.only(bottom: 2),
+                child: SmallText(text: 'Food pairing'),
+              ),
+            ],
+          ),
+        ),
+        // LIST VIEW BUILDER started from here.
+        SizedBox(height: Dimensions.height16),
+        Container(
+          height: 800,
+          child: ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            // shrinkWrap: true,
+            itemCount: 10,
+            itemBuilder: (context, index) {
+              return Container(
+                margin: EdgeInsets.only(
+                  left: Dimensions.width24,
+                  right: Dimensions.width16,
+                  bottom: Dimensions.height8,
+                ),
+                child: Row(
+                  children: [
+                    // I will show product image here.
+                    Container(
+                      height: 100,
+                      width: 100,
+                      decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.radius20),
+                          color: Colors.white38,
+                          image: const DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage('assets/image/food0.png'),
+                          )),
+                    ),
+                    //  Then i will show a column here...
+                    Expanded(
+                      child: Container(
+                        height: 80,
+                        decoration: BoxDecoration(
+                            color: Colors.white30,
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(Dimensions.radius20),
+                              bottomRight: Radius.circular(Dimensions.radius20),
+                            )),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: Dimensions.width8, right: Dimensions.width8),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              BigText(text: 'Nutritious fruit meal in china'),
+                              SizedBox(height: Dimensions.height4),
+                              SmallText(text: 'With chinese characteristics'),
+                              SizedBox(height: Dimensions.height4),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  IconAndTextWidget(
+                                      icon: Icons.circle,
+                                      iconColor: AppColors.iconColor1,
+                                      text: 'Normal'),
+                                  IconAndTextWidget(
+                                      icon: Icons.location_on,
+                                      iconColor: AppColors.mainColor,
+                                      text: '1.7 km'),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: Dimensions.width8),
+                                    child: IconAndTextWidget(
+                                        icon: Icons.access_time_sharp,
+                                        iconColor: AppColors.iconColor2,
+                                        text: '32 min'),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
       ],
     );
   }

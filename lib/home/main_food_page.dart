@@ -25,11 +25,15 @@ class _MainFoodPageState extends State<MainFoodPage> {
             Container(
               //I will use the above container for changing color in the future. Now it is unnecessary.
               child: Padding(
-                padding: EdgeInsets.symmetric( vertical: Dimensions.height8, horizontal: Dimensions.width8),
+                padding: EdgeInsets.symmetric(
+                    vertical: Dimensions.height8,
+                    horizontal: Dimensions.width8),
                 // SHOWING THE HEADER
                 child: Container(
-                  margin: EdgeInsets.only(top: Dimensions.height16, bottom: Dimensions.height8),
-                  padding: EdgeInsets.only(left: Dimensions.width16, right: Dimensions.width16),
+                  margin: EdgeInsets.only(
+                      top: Dimensions.height16, bottom: Dimensions.height8),
+                  padding: EdgeInsets.only(
+                      left: Dimensions.width16, right: Dimensions.width16),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     // mainAxisSize: MainAxisSize.min,
@@ -38,29 +42,34 @@ class _MainFoodPageState extends State<MainFoodPage> {
                       Column(
                           // This column is for containing both the Name of the country and subsequent
                           // row which have city name and dropdown menu.
-                        mainAxisSize: MainAxisSize.min,
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                        BigText(text: 'Bangladesh', color: AppColors.mainColor),
-                        Row(
-                          // This row is for the subtext and dropdown menu item
-                          children: [
-                            SmallText(text:'Dhaka',
-                                color: Colors.black54
-                              ),
-                            // SizedBox(width: 10),
-                            Icon(Icons.arrow_drop_down_rounded),
-                          ],
-                        ),
-                      ]),
+                            BigText(
+                                text: 'Bangladesh', color: AppColors.mainColor),
+                            Row(
+                              // This row is for the subtext and dropdown menu item
+                              children: [
+                                SmallText(text: 'Dhaka', color: Colors.black54),
+                                // SizedBox(width: 10),
+                                const Icon(Icons.arrow_drop_down_rounded),
+                              ],
+                            ),
+                          ]),
                       // Below container is for search icon
                       Center(
                         child: Container(
                           height: Dimensions.height36,
                           width: Dimensions.width36,
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.radius8),
-                          color: AppColors.mainColor,
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.radius8),
+                            color: AppColors.mainColor,
                           ),
-                          child: Icon(Icons.search, color: Colors.white,size: Dimensions.iconSize24,),
+                          child: Icon(
+                            Icons.search,
+                            color: Colors.white,
+                            size: Dimensions.iconSize24,
+                          ),
                         ),
                       ),
                     ],
@@ -69,7 +78,11 @@ class _MainFoodPageState extends State<MainFoodPage> {
               ),
             ),
             // SHOWING THE BODY
-            FoodPageBody(),
+            const Expanded(
+              child: SingleChildScrollView(
+                child: FoodPageBody(),
+              ),
+            ),
           ],
         ),
       ),
