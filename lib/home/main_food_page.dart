@@ -4,6 +4,8 @@ import 'package:food_delivery_app/custom_widgets/small_text.dart';
 import 'package:food_delivery_app/home/food_page_body.dart';
 import 'package:food_delivery_app/utils/colors.dart';
 
+import '../utils/dimensions.dart';
+
 class MainFoodPage extends StatefulWidget {
   const MainFoodPage({Key? key}) : super(key: key);
 
@@ -14,17 +16,20 @@ class MainFoodPage extends StatefulWidget {
 class _MainFoodPageState extends State<MainFoodPage> {
   @override
   Widget build(BuildContext context) {
+    // var height = MediaQuery.of(context).size.height;
+    // print('height: $height');
     return Scaffold(
-
       body: SafeArea(
         child: Column(
           children: [
             Container(
               //I will use the above container for changing color in the future. Now it is unnecessary.
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.symmetric( vertical: Dimensions.height8, horizontal: Dimensions.width8),
+                // SHOWING THE HEADER
                 child: Container(
-                  // height: 115,
+                  margin: EdgeInsets.only(top: Dimensions.height16, bottom: Dimensions.height8),
+                  padding: EdgeInsets.only(left: Dimensions.width16, right: Dimensions.width16),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     // mainAxisSize: MainAxisSize.min,
@@ -50,12 +55,12 @@ class _MainFoodPageState extends State<MainFoodPage> {
                       // Below container is for search icon
                       Center(
                         child: Container(
-                          height: 45,
-                          width: 45,
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),
+                          height: Dimensions.height36,
+                          width: Dimensions.width36,
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.radius8),
                           color: AppColors.mainColor,
                           ),
-                          child: Icon(Icons.search, color: Colors.white,),
+                          child: Icon(Icons.search, color: Colors.white,size: Dimensions.iconSize24,),
                         ),
                       ),
                     ],
@@ -63,6 +68,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
                 ),
               ),
             ),
+            // SHOWING THE BODY
             FoodPageBody(),
           ],
         ),
