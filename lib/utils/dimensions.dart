@@ -18,6 +18,8 @@ class Dimensions{
   static double height16 = screenHeight/42.7;
   static double height32 = screenHeight/21.4;
   static double height36 = screenHeight/18.9;
+  // static double height80 = screenHeight/8.543;
+  // static double height100 = screenHeight/6.85;
 
   static double width4 = screenWidth/102.88;
   static double width8 = screenWidth/51.42;
@@ -26,6 +28,7 @@ class Dimensions{
   static double width24 = screenWidth/17.15;
   static double width32 = screenWidth/12.9;
   static double width36 = screenWidth/11.43;
+  static double width100 = screenWidth/4.114;
 
 // Font size
   static double font16 = screenHeight/42.7;
@@ -40,5 +43,13 @@ class Dimensions{
 
 //  Icon size
   static double iconSize24 = screenHeight/28.48;
+  static double iconSize16 = screenHeight/42.72;
+
+//  Listview size
+static double listViewImgSize = screenHeight/6.85;
+static double listViewTextContainerSize = screenHeight/8.54;
+
+//Popular food details page
+static double popularFoodImgSize = screenHeight/2.2;
 
 }

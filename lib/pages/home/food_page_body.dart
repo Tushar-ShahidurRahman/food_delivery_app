@@ -1,5 +1,6 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/custom_widgets/app_column_with_stars.dart';
 import 'package:food_delivery_app/custom_widgets/big_text.dart';
 import 'package:food_delivery_app/custom_widgets/icon_and_text_widget.dart';
 import 'package:food_delivery_app/custom_widgets/small_text.dart';
@@ -81,84 +82,83 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         ),
         // LIST VIEW BUILDER started from here.
         SizedBox(height: Dimensions.height16),
-        Container(
-          height: 800,
-          child: ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            // shrinkWrap: true,
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return Container(
-                margin: EdgeInsets.only(
-                  left: Dimensions.width24,
-                  right: Dimensions.width16,
-                  bottom: Dimensions.height8,
-                ),
-                child: Row(
-                  children: [
-                    // I will show product image here.
-                    Container(
-                      height: 100,
-                      width: 100,
+        ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: 10,
+          itemBuilder: (context, index) {
+            return Container(
+              margin: EdgeInsets.only(
+                left: Dimensions.width24,
+                right: Dimensions.width16,
+                bottom: Dimensions.height8,
+              ),
+              child: Row(
+                children: [
+                  // I will show product image here.
+                  Container(
+                    height: Dimensions.listViewImgSize,
+                    width: Dimensions.listViewImgSize,
+                    decoration: BoxDecoration(
+                        borderRadius:
+                            BorderRadius.circular(Dimensions.radius20),
+                        color: Colors.white38,
+                        image: const DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage('assets/image/food0.png'),
+                        )),
+                  ),
+                  //  Then i will show a column here...
+                  Expanded(
+                    child: Container(
+                      height: Dimensions.listViewTextContainerSize,
                       decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radius20),
-                          color: Colors.white38,
-                          image: const DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage('assets/image/food0.png'),
+                          color: Colors.white30,
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(Dimensions.radius20),
+                            bottomRight: Radius.circular(Dimensions.radius20),
                           )),
-                    ),
-                    //  Then i will show a column here...
-                    Expanded(
-                      child: Container(
-                        height: 80,
-                        decoration: BoxDecoration(
-                            color: Colors.white30,
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(Dimensions.radius20),
-                              bottomRight: Radius.circular(Dimensions.radius20),
-                            )),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: Dimensions.width8, right: Dimensions.width8),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              BigText(text: 'Nutritious fruit meal in china'),
-                              SizedBox(height: Dimensions.height4),
-                              SmallText(text: 'With chinese characteristics'),
-                              SizedBox(height: Dimensions.height4),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  IconAndTextWidget(
-                                      icon: Icons.circle,
-                                      iconColor: AppColors.iconColor1,
-                                      text: 'Normal'),
-                                  IconAndTextWidget(
-                                      icon: Icons.location_on,
-                                      iconColor: AppColors.mainColor,
-                                      text: '1.7 km'),
-                                  Padding(
-                                    padding: EdgeInsets.only(right: Dimensions.width8),
-                                    child: IconAndTextWidget(
-                                        icon: Icons.access_time_sharp,
-                                        iconColor: AppColors.iconColor2,
-                                        text: '32 min'),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            left: Dimensions.width8, right: Dimensions.width8),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            BigText(text: 'Nutritious fruit meal in china'),
+                            SizedBox(height: Dimensions.height4),
+                            SmallText(text: 'With chinese characteristics'),
+                            SizedBox(height: Dimensions.height4),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                IconAndTextWidget(
+                                    icon: Icons.circle,
+                                    iconColor: AppColors.iconColor1,
+                                    text: 'Normal'),
+                                IconAndTextWidget(
+                                    icon: Icons.location_on,
+                                    iconColor: AppColors.mainColor,
+                                    text: '1.7 km'),
+                                Padding(
+                                  padding:
+                                      EdgeInsets.only(right: Dimensions.width8),
+                                  child: IconAndTextWidget(
+                                      icon: Icons.access_time_sharp,
+                                      iconColor: AppColors.iconColor2,
+                                      text: '32 min'),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                  ],
-                ),
-              );
-            },
-          ),
+                  ),
+                ],
+              ),
+            );
+          },
         ),
       ],
     );
@@ -250,49 +250,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                   padding: EdgeInsets.symmetric(
                       vertical: Dimensions.height16,
                       horizontal: Dimensions.width16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      BigText(text: 'Bitter Orange Marinade'),
-                      SizedBox(height: Dimensions.height4),
-                      Row(
-                        children: [
-                          Wrap(
-                            children: List.generate(
-                                5,
-                                (index) => Icon(Icons.star,
-                                    //Todo: Change the icon size here, make it dynamic
-                                    color: AppColors.mainColor,
-                                    size: 12)),
-                          ),
-                          SizedBox(width: Dimensions.width8),
-                          SmallText(text: '4.5'),
-                          SizedBox(width: Dimensions.width8),
-                          SmallText(text: '1287'),
-                          SizedBox(width: Dimensions.width8),
-                          SmallText(text: 'comments'),
-                        ],
-                      ),
-                      SizedBox(height: Dimensions.height8),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconAndTextWidget(
-                              icon: Icons.circle,
-                              iconColor: AppColors.iconColor1,
-                              text: 'Normal'),
-                          IconAndTextWidget(
-                              icon: Icons.location_on,
-                              iconColor: AppColors.mainColor,
-                              text: '1.7 km'),
-                          IconAndTextWidget(
-                              icon: Icons.access_time_sharp,
-                              iconColor: AppColors.iconColor2,
-                              text: '32 min'),
-                        ],
-                      ),
-                    ],
-                  ),
+                  child:
+                      const AppColumnWithStars(text: 'Bitter Orange Marinade'),
                 ),
               ),
             ),
