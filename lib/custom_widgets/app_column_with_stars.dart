@@ -15,7 +15,7 @@ class AppColumnWithStars extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        BigText(text: text),
+        BigText(text: text, size: Dimensions.font20,),
         SizedBox(height: Dimensions.height4),
         Row(
           children: [
@@ -25,7 +25,7 @@ class AppColumnWithStars extends StatelessWidget {
                       (index) => Icon(Icons.star,
                       //Todo: Change the icon size here, make it dynamic
                       color: AppColors.mainColor,
-                      size: 12)),
+                      size: Dimensions.iconSize12)),
             ),
             SizedBox(width: Dimensions.width8),
             SmallText(text: '4.5'),

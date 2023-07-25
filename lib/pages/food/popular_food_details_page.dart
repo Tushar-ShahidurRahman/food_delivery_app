@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/custom_widgets/app_column_with_stars.dart';
+import 'package:food_delivery_app/custom_widgets/expandable_text_widget.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 
 import '../../custom_widgets/app_icon.dart';
 import '../../custom_widgets/big_text.dart';
-import '../../custom_widgets/icon_and_text_widget.dart';
-import '../../custom_widgets/small_text.dart';
 import '../../utils/colors.dart';
 
 class PopularFoodDetailsPage extends StatelessWidget {
+  final String demoTextShort = "This is a demo test for short version";
+  final String demoTextLong =
+      """This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end.""";
+
   const PopularFoodDetailsPage({Key? key}) : super(key: key);
 
   @override
@@ -18,6 +21,7 @@ class PopularFoodDetailsPage extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
+            // Food image section
             Positioned(
                 left: 0,
                 right: 0,
@@ -31,6 +35,7 @@ class PopularFoodDetailsPage extends StatelessWidget {
                     ),
                   ),
                 )),
+            // Icon section on the image
             Positioned(
               top: Dimensions.height16,
               left: Dimensions.width16,
@@ -44,6 +49,7 @@ class PopularFoodDetailsPage extends StatelessWidget {
                 ],
               ),
             ),
+            // Food intro section
             Positioned(
                 left: 0,
                 right: 0,
@@ -61,13 +67,25 @@ class PopularFoodDetailsPage extends StatelessWidget {
                         topLeft: Radius.circular(Dimensions.radius20),
                         topRight: Radius.circular(Dimensions.radius20),
                       )),
-                  child: const AppColumnWithStars(text: 'Bitter Orange Marinade'),
-                ))
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const AppColumnWithStars(text: 'Bitter Orange Marinade'),
+                      SizedBox(height: Dimensions.height16),
+                      BigText(text: 'Introduce'),
+                      SizedBox(height: Dimensions.height16),
+                      //  Expandable text
+                      Expanded(
+                          child: SingleChildScrollView(
+                              child: ExpandableTextWidget(text: demoTextLong))),
+                    ],
+                  ),
+                )),
           ],
         ),
       ),
       bottomNavigationBar: Container(
-        height: 100,
+        height: Dimensions.bottomNavBarContainerHeight,
         decoration: BoxDecoration(
             color: AppColors.buttonBackgroundColor,
             borderRadius: BorderRadius.only(
@@ -83,28 +101,46 @@ class PopularFoodDetailsPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                width: 130,
-                height: 50,
+                padding: EdgeInsets.only(
+                    left: Dimensions.width16,
+                    right: Dimensions.width16,
+                    top: Dimensions.height16,
+                    bottom: Dimensions.height16),
                 decoration: BoxDecoration(
-                  color: Colors.white70,
+                  color: Colors.white,
                   borderRadius: BorderRadius.all(
-                    Radius.circular(Dimensions.radius8),
+                    Radius.circular(Dimensions.radius8 * 2),
                   ),
                 ),
-                child: Row(children: [
-                  TextButton(onPressed: () {}, child: const Icon(Icons.remove, color: Colors.black38,)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(Icons.remove, color: AppColors.signColor),
+                    SizedBox(width: Dimensions.width4),
+                    BigText(text: '0'),
+                    SizedBox(width: Dimensions.width4),
+                    Icon(Icons.add, color: AppColors.signColor),
 
-                  TextButton(onPressed: () {}, child: const Icon(Icons.add, color: Colors.black38,)),
-                ],),
+                    // TextButton(onPressed: () {}, child: const Icon(Icons.add, color: Colors.black38,)),
+                  ],
+                ),
               ),
               Container(
-                width: 170,
-                height: 60,
+                // width: 170,
+                // height: 60,
+                padding: EdgeInsets.only(
+                    left: Dimensions.width16,
+                    right: Dimensions.width16,
+                    top: Dimensions.height16 + 4,
+                    bottom: Dimensions.height16),
                 decoration: BoxDecoration(
                   color: AppColors.mainColor,
                   borderRadius: BorderRadius.all(
                     Radius.circular(Dimensions.radius20),
                   ),
+                ),
+                child: BigText(
+                  text: '\$10 | Add to cart',
                 ),
               ),
             ],
