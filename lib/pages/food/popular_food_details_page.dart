@@ -126,8 +126,6 @@ class PopularFoodDetailsPage extends StatelessWidget {
                 ),
               ),
               Container(
-                // width: 170,
-                // height: 60,
                 padding: EdgeInsets.only(
                     left: Dimensions.width16,
                     right: Dimensions.width16,
