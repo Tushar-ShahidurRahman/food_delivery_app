@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/controllers/recommended_food_product_controller.dart';
 import 'package:food_delivery_app/custom_widgets/app_icon.dart';
 import 'package:food_delivery_app/custom_widgets/big_text.dart';
 import 'package:food_delivery_app/custom_widgets/expandable_text_widget.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
+import 'package:food_delivery_app/utils/app_constants.dart';
 import 'package:food_delivery_app/utils/colors.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:get/get.dart';
@@ -11,11 +13,12 @@ class RecommendedFoodDetailsPage extends StatelessWidget {
   final String demoTextShort = "This is a demo test for short version";
   final String demoTextLong =
       """This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end.""";
-
-  const RecommendedFoodDetailsPage({Key? key}) : super(key: key);
+ final int pageId;
+  const RecommendedFoodDetailsPage({Key? key, required this.pageId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final product = Get.find<RecommendedFoodProductsController>().recommendedFoodProductList[pageId];
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -59,7 +62,7 @@ class RecommendedFoodDetailsPage extends StatelessWidget {
                       )),
                   child: Center(
                       child: BigText(
-                    text: 'Sliver App bar',
+                    text: product.name!,
                     size: Dimensions.font20,
                   )),
                 ),
@@ -67,8 +70,8 @@ class RecommendedFoodDetailsPage extends StatelessWidget {
               expandedHeight: 355,
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
-                background: Image.asset(
-                  'assets/image/food14.jpeg',
+                background: Image.network(
+                  AppConstants.BASE_URI+AppConstants.UPLOAD_URL+product.img!,
                   // 'assets/image/food0.png',
                   fit: BoxFit.cover,
                   width: double.maxFinite,
@@ -81,7 +84,7 @@ class RecommendedFoodDetailsPage extends StatelessWidget {
                     left: Dimensions.width16,
                     right: Dimensions.width16,
                     top: Dimensions.width10),
-                child: ExpandableTextWidget(text: demoTextLong),
+                child: ExpandableTextWidget(text: product.description!),
               ),
             ),
           ],
@@ -100,9 +103,10 @@ class RecommendedFoodDetailsPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                //Todo: make the cart score dynamic
                 AppIcon(
                     icon: Icons.remove, backgroundColor: AppColors.mainColor, iconColor: Colors.white, iconSize: Dimensions.iconSize24,),
-                BigText(text: '\$18 X 0', size: Dimensions.font26),
+                BigText(text: '\$${product.price!} X 0', size: Dimensions.font26),
                 AppIcon(
                   icon: Icons.add,
                   backgroundColor: AppColors.mainColor,

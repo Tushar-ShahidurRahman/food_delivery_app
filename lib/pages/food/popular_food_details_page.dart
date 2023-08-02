@@ -146,7 +146,7 @@ class PopularFoodDetailsPage extends StatelessWidget {
                   ),
                 ),
                 child: BigText(
-                  text: '\$ ${product.price} | Add to cart',
+                  text: '\$ ${product.price!} | Add to cart',
                 ),
               ),
             ],
