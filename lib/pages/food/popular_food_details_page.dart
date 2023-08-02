@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/controllers/popular_food_products_controller.dart';
 import 'package:food_delivery_app/custom_widgets/app_column_with_stars.dart';
 import 'package:food_delivery_app/custom_widgets/expandable_text_widget.dart';
+import 'package:food_delivery_app/utils/app_constants.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
+import 'package:get/get.dart';
 
 import '../../custom_widgets/app_icon.dart';
 import '../../custom_widgets/big_text.dart';
@@ -12,10 +15,15 @@ class PopularFoodDetailsPage extends StatelessWidget {
   final String demoTextLong =
       """This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end.""";
 
-  const PopularFoodDetailsPage({Key? key}) : super(key: key);
+  final int pageId;
+
+  const PopularFoodDetailsPage({required this.pageId, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final product = Get.find<PopularFoodProductsController>()
+        .popularFoodProductList[pageId];
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -28,12 +36,12 @@ class PopularFoodDetailsPage extends StatelessWidget {
                 child: Container(
                   width: double.maxFinite,
                   height: Dimensions.popularFoodImgSize,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage('assets/image/food0.png'),
-                    ),
-                  ),
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(AppConstants.BASE_URI +
+                              AppConstants.UPLOAD_URL +
+                              product.img!))),
                 )),
             // Icon section on the image
             Positioned(
@@ -70,14 +78,14 @@ class PopularFoodDetailsPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const AppColumnWithStars(text: 'Bitter Orange Marinade'),
+                      AppColumnWithStars(text: product.name!),
                       SizedBox(height: Dimensions.height16),
                       BigText(text: 'Introduce'),
                       SizedBox(height: Dimensions.height16),
                       //  Expandable text
                       Expanded(
                           child: SingleChildScrollView(
-                              child: ExpandableTextWidget(text: demoTextLong))),
+                              child: ExpandableTextWidget(text: product.description!))),
                     ],
                   ),
                 )),
@@ -138,7 +146,7 @@ class PopularFoodDetailsPage extends StatelessWidget {
                   ),
                 ),
                 child: BigText(
-                  text: '\$10 | Add to cart',
+                  text: '\$ ${product.price} | Add to cart',
                 ),
               ),
             ],

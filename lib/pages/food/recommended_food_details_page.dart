@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/custom_widgets/app_icon.dart';
 import 'package:food_delivery_app/custom_widgets/big_text.dart';
 import 'package:food_delivery_app/custom_widgets/expandable_text_widget.dart';
+import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/utils/colors.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
+import 'package:get/get.dart';
 
 class RecommendedFoodDetailsPage extends StatelessWidget {
   final String demoTextShort = "This is a demo test for short version";
@@ -20,14 +22,20 @@ class RecommendedFoodDetailsPage extends StatelessWidget {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
+              automaticallyImplyLeading: false,
               toolbarHeight: Dimensions.height36 * 2,
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AppIcon(
-                    icon: Icons.clear,
-                    backgroundColor: Colors.white70,
-                    iconSize: Dimensions.iconSize16 + 4,
+                  GestureDetector(
+                    onTap: () {
+                      Get.toNamed(RouteHelper.getInitial());
+                    },
+                    child: AppIcon(
+                      icon: Icons.clear,
+                      backgroundColor: Colors.white70,
+                      iconSize: Dimensions.iconSize16 + 4,
+                    ),
                   ),
                   AppIcon(
                     icon: Icons.shopping_cart_outlined,
