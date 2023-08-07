@@ -87,7 +87,8 @@ class PopularFoodProductsController extends GetxController {
     _cart = cart;
       //     Then check the global variable (_items) stored in Cart_Controller if _inCartItem has any value
       //     stored or not. And reset the _inCartItem with that value.
-    bool _isExist = _cart.itemExist(product);
+    bool _isExist = false;
+    _isExist = _cart.itemExist(product);
     if(_isExist) {
       _inCartItem = _cart.getProductQuantity(product);
     }
@@ -95,17 +96,14 @@ class PopularFoodProductsController extends GetxController {
 
   // This method is calling the addItem method in cart controller from this product Controller.
   void addItem(ProductModel product) {
-    if (_quantity > 0) {
       _cart.addItem(product: product, itemQuantity: _quantity);
       _quantity = 0;
       _inCartItem = _cart.getProductQuantity(product);
-    } else{
-      Get.snackbar(
-        'Order limit',
-        'You should add at least 1 item!',
-        backgroundColor: AppColors.mainColor,
-        colorText: Colors.white,
-      );
+
+      update();
     }
-  }
+
+    int get totalProductCount{
+    return _cart.totalProductCount;
+    }
 }

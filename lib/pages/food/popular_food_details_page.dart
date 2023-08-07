@@ -14,7 +14,7 @@ import '../../utils/colors.dart';
 class PopularFoodDetailsPage extends StatelessWidget {
   final String demoTextShort = "This is a demo test for short version";
   final String demoTextLong =
-      """This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end.""";
+  """This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end.""";
 
   final int pageId;
 
@@ -23,9 +23,11 @@ class PopularFoodDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final product = Get.find<PopularFoodProductsController>()
+    final product = Get
+        .find<PopularFoodProductsController>()
         .popularFoodProductList[pageId];
-    Get.find<PopularFoodProductsController>().initProduct(product, Get.find<CartController>());
+    Get.find<PopularFoodProductsController>()
+        .initProduct(product, Get.find<CartController>());
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -55,7 +57,33 @@ class PopularFoodDetailsPage extends StatelessWidget {
                 //   Inside this Row i need to place two icons. But those icons needs to be reusable.
                 children: [
                   AppIcon(icon: Icons.arrow_back_ios),
-                  AppIcon(icon: Icons.shopping_cart_outlined),
+                  // AppIcon(icon: Icons.shopping_cart_outlined),
+                  GetBuilder<PopularFoodProductsController>(
+                      builder: (popularProductController) {
+                        return Stack(
+                          children: [
+                            AppIcon(icon: Icons.shopping_cart_outlined),
+                            //Showing
+                            popularProductController.totalProductCount >= 1
+                                ? Positioned(
+                              right: 0,
+                              top: 0,
+                              child: AppIcon(icon: Icons.circle,
+                                backgroundColor: AppColors.mainColor,
+                                iconColor: Colors.transparent,
+                                size: 20,
+                              ),
+                            )
+                                :
+                                // Container(),
+                            Positioned(
+                              right: 3,
+                              top: 3,
+                              child: BigText(text: popularProductController.totalProductCount.toString(), size: 12, color: Colors.white,),
+                            )
+                          ],
+                        );
+                      }),
                 ],
               ),
             ),
@@ -95,6 +123,8 @@ class PopularFoodDetailsPage extends StatelessWidget {
           ],
         ),
       ),
+
+      //Bottom navigation bar starts from here
       bottomNavigationBar: GetBuilder<PopularFoodProductsController>(
         builder: (popularProductController) {
           return Container(
@@ -133,10 +163,11 @@ class PopularFoodDetailsPage extends StatelessWidget {
                               popularProductController.setQuantity(false);
                             },
                             child:
-                                Icon(Icons.remove, color: AppColors.signColor)),
+                            Icon(Icons.remove, color: AppColors.signColor)),
                         SizedBox(width: Dimensions.width4),
                         BigText(
-                            text: popularProductController.inCartItem.toString()),
+                            text:
+                            popularProductController.inCartItem.toString()),
                         SizedBox(width: Dimensions.width4),
                         GestureDetector(
                             onTap: () {
