@@ -63,7 +63,7 @@ class PopularFoodDetailsPage extends StatelessWidget {
                         return Stack(
                           children: [
                             AppIcon(icon: Icons.shopping_cart_outlined),
-                            //Showing
+                            //This section is for showing the circle icon with main color as background.
                             popularProductController.totalProductCount >= 1
                                 ? Positioned(
                               right: 0,
@@ -75,12 +75,15 @@ class PopularFoodDetailsPage extends StatelessWidget {
                               ),
                             )
                                 :
-                                // Container(),
-                            Positioned(
+                                // Or else, show an empty container.
+                                Container(),
+                            // This section is for showing the Text inside of the circle icon.
+                            popularProductController.totalProductCount >= 1
+                                ? Positioned(
                               right: 3,
                               top: 3,
                               child: BigText(text: popularProductController.totalProductCount.toString(), size: 12, color: Colors.white,),
-                            )
+                            ): Container(),
                           ],
                         );
                       }),

@@ -66,6 +66,10 @@ class PopularFoodProductsController extends GetxController {
         backgroundColor: AppColors.mainColor,
         colorText: Colors.white,
       );
+      if(_inCartItem > 0) {
+        _quantity = -_inCartItem;
+        return _quantity;
+      }
       return 0;
     } else if (_inCartItem + orderQuantity > 20) {
       Get.snackbar(
