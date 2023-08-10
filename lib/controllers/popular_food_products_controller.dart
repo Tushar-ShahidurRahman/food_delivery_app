@@ -6,6 +6,7 @@ import 'package:food_delivery_app/data/repositories/popular_food_product_item_re
 import 'package:food_delivery_app/utils/colors.dart';
 import 'package:get/get.dart';
 
+import '../models/cart_model.dart';
 import '../models/product_model.dart';
 
 class PopularFoodProductsController extends GetxController {
@@ -109,5 +110,9 @@ class PopularFoodProductsController extends GetxController {
 
     int get totalProductCount{
     return _cart.totalProductCount;
+    }
+
+    List<CartModel> get getItems{
+    return _cart.getItems;
     }
 }
