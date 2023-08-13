@@ -38,8 +38,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
 
   @override
   void dispose() {
-    super.dispose();
     pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -131,7 +131,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                           .recommendedFoodProductList[index];
                       return GestureDetector(
                         onTap: () {
-                          Get.toNamed(RouteHelper.getRecommendedFood(pageId: index, pageName: 'home page'));
+                          Get.toNamed(RouteHelper.getRecommendedFood(
+                              pageId: index, pageName: 'home page'));
                         },
                         child: Container(
                           margin: EdgeInsets.only(
@@ -266,7 +267,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         children: [
           GestureDetector(
             onTap: () {
-              Get.toNamed(RouteHelper.getPopularFood(pageId: index, pageName: 'home page'));
+              Get.toNamed(RouteHelper.getPopularFood(
+                  pageId: index, pageName: 'home page'));
             },
             child: Container(
               height: Dimensions.pageViewContainer,
