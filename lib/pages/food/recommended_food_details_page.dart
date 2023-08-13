@@ -13,12 +13,13 @@ import 'package:get/get.dart';
 import '../../controllers/cart_controller.dart';
 
 class RecommendedFoodDetailsPage extends StatelessWidget {
-  final String demoTextShort = "This is a demo test for short version";
-  final String demoTextLong =
-      """This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end.""";
+  // final String demoTextShort = "This is a demo test for short version";
+  // final String demoTextLong =
+  //     """This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end.This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end.""";
   final int pageId;
+  final String pageName;
 
-  const RecommendedFoodDetailsPage({Key? key, required this.pageId})
+  const RecommendedFoodDetailsPage({Key? key, required this.pageId, required this.pageName})
       : super(key: key);
 
   @override
@@ -40,7 +41,11 @@ class RecommendedFoodDetailsPage extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Get.toNamed(RouteHelper.getInitial());
+                      if(pageName == 'cart page'){
+                        Get.toNamed(RouteHelper.getCartPage());
+                      } else{
+                        Get.toNamed(RouteHelper.getInitial());
+                      }
                     },
                     child: AppIcon(
                       icon: Icons.clear,
@@ -55,31 +60,39 @@ class RecommendedFoodDetailsPage extends StatelessWidget {
                   // ),
                   GetBuilder<PopularFoodProductsController>(
                       builder: (popularProductController) {
-                        return Stack(
-                          children: [
-                            AppIcon(icon: Icons.shopping_cart_outlined),
-                            //This section is for showing the circle icon with main color as background.
-                            popularProductController.totalProductCount >= 1
-                                ? Positioned(
-                              right: 0,
-                              top: 0,
-                              child: AppIcon(icon: Icons.circle,
-                                backgroundColor: AppColors.mainColor,
-                                iconColor: Colors.transparent,
-                                size: 20,
-                              ),
-                            )
-                                :
-                            // Or else, show an empty container.
-                            Container(),
-                            // This section is for showing the Text inside of the circle icon.
-                            popularProductController.totalProductCount >= 1
-                                ? Positioned(
-                              right: 3,
-                              top: 3,
-                              child: BigText(text: popularProductController.totalProductCount.toString(), size: 12, color: Colors.white,),
-                            ): Container(),
-                          ],
+                        return GestureDetector(
+                          onTap: () {
+                            if(
+                            popularProductController.totalProductCount>=1) {
+                              Get.toNamed(RouteHelper.getCartPage());
+                            }
+                          },
+                          child: Stack(
+                            children: [
+                              AppIcon(icon: Icons.shopping_cart_outlined),
+                              //This section is for showing the circle icon with main color as background.
+                              popularProductController.totalProductCount >= 1
+                                  ? Positioned(
+                                right: 0,
+                                top: 0,
+                                child: AppIcon(icon: Icons.circle,
+                                  backgroundColor: AppColors.mainColor,
+                                  iconColor: Colors.transparent,
+                                  size: 20,
+                                ),
+                              )
+                                  :
+                              // Or else, show an empty container.
+                              Container(),
+                              // This section is for showing the Text inside of the circle icon.
+                              popularProductController.totalProductCount >= 1
+                                  ? Positioned(
+                                right: 3,
+                                top: 3,
+                                child: BigText(text: popularProductController.totalProductCount.toString(), size: 12, color: Colors.white,),
+                              ): Container(),
+                            ],
+                          ),
                         );
                       })
                 ],

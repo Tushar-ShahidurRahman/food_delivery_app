@@ -25,6 +25,8 @@ class CartController extends GetxController {
         product.id!,
         (value) {
           _totalQuantity = value.quantity! + itemQuantity;
+          //Even if the _totalQuantity equals to zero, we should update the value. Then
+          //we will remove it by calling remove.
           return CartModel(
             id: value.id,
             name: value.name,
@@ -33,6 +35,9 @@ class CartController extends GetxController {
             quantity: _totalQuantity,
             isExist: true,
             time: DateTime.now().toString(),
+            //1st product is from the cart model
+            //2nd product is from the argument provided by popular/recommended food product controller.
+            product: product,
           );
         },
       );
@@ -52,6 +57,7 @@ class CartController extends GetxController {
                   quantity: itemQuantity,
                   isExist: true,
                   time: DateTime.now().toString(),
+              product: product,
                 ));
       } else {
         Get.snackbar(
@@ -62,6 +68,7 @@ class CartController extends GetxController {
         );
       }
     }
+    update();
   }
 
   // Checks if the value is there
@@ -98,6 +105,15 @@ class CartController extends GetxController {
     return _items.entries.map((e) {
       return e.value;
     }).toList();
+  }
+
+  int get totalAmount{
+    int _total = 0;
+    _items.forEach((key, value) {
+      _total += (value.quantity! * value.price!).ceil();
+    });
+
+    return _total;
   }
 
 }

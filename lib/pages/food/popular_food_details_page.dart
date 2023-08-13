@@ -3,6 +3,7 @@ import 'package:food_delivery_app/controllers/cart_controller.dart';
 import 'package:food_delivery_app/controllers/popular_food_products_controller.dart';
 import 'package:food_delivery_app/custom_widgets/app_column_with_stars.dart';
 import 'package:food_delivery_app/custom_widgets/expandable_text_widget.dart';
+import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/utils/app_constants.dart';
 import 'package:food_delivery_app/utils/dimensions.dart';
 import 'package:get/get.dart';
@@ -12,19 +13,19 @@ import '../../custom_widgets/big_text.dart';
 import '../../utils/colors.dart';
 
 class PopularFoodDetailsPage extends StatelessWidget {
-  final String demoTextShort = "This is a demo test for short version";
-  final String demoTextLong =
-  """This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end.""";
+  // final String demoTextShort = "This is a demo test for short version";
+  // final String demoTextLong =
+  // """This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end. This is a demo test for long version, This is very good, And i will continue it till the end.""";
 
   final int pageId;
+  final String pageName;
 
-  const PopularFoodDetailsPage({required this.pageId, Key? key})
+  const PopularFoodDetailsPage({required this.pageId, required this.pageName, Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final product = Get
-        .find<PopularFoodProductsController>()
+    final product = Get.find<PopularFoodProductsController>()
         .popularFoodProductList[pageId];
     Get.find<PopularFoodProductsController>()
         .initProduct(product, Get.find<CartController>());
@@ -56,37 +57,64 @@ class PopularFoodDetailsPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 //   Inside this Row i need to place two icons. But those icons needs to be reusable.
                 children: [
-                  AppIcon(icon: Icons.arrow_back_ios),
+                  GestureDetector(
+                    onTap: () {
+                      if(pageName == 'cart page'){
+                        Get.toNamed(RouteHelper.getCartPage());
+                      } else{
+                      Get.toNamed(RouteHelper.getInitial());
+                    }},
+                    child: AppIcon(
+                      icon: Icons.clear,
+                      backgroundColor: Colors.white70,
+                      iconSize: Dimensions.iconSize16 + 4,
+                    ),
+                  ),
                   // AppIcon(icon: Icons.shopping_cart_outlined),
                   GetBuilder<PopularFoodProductsController>(
                       builder: (popularProductController) {
-                        return Stack(
-                          children: [
-                            AppIcon(icon: Icons.shopping_cart_outlined),
-                            //This section is for showing the circle icon with main color as background.
-                            popularProductController.totalProductCount >= 1
-                                ? Positioned(
-                              right: 0,
-                              top: 0,
-                              child: AppIcon(icon: Icons.circle,
-                                backgroundColor: AppColors.mainColor,
-                                iconColor: Colors.transparent,
-                                size: 20,
-                              ),
-                            )
-                                :
-                                // Or else, show an empty container.
-                                Container(),
-                            // This section is for showing the Text inside of the circle icon.
-                            popularProductController.totalProductCount >= 1
-                                ? Positioned(
-                              right: 3,
-                              top: 3,
-                              child: BigText(text: popularProductController.totalProductCount.toString(), size: 12, color: Colors.white,),
-                            ): Container(),
-                          ],
-                        );
-                      }),
+                    return GestureDetector(
+                      onTap: () {
+                        if (popularProductController.totalProductCount >= 1) {
+                          Get.toNamed(RouteHelper.getCartPage());
+                        }
+                      },
+                      child: Stack(
+                        children: [
+                          AppIcon(icon: Icons.shopping_cart_outlined),
+                          //This section is for showing the circle icon with main color as background.
+                          popularProductController.totalProductCount >= 1
+                              ? Positioned(
+                                  right: 0,
+                                  top: 0,
+                                  child: AppIcon(
+                                    icon: Icons.circle,
+                                    backgroundColor: AppColors.mainColor,
+                                    iconColor: Colors.transparent,
+                                    size: 20,
+                                  ),
+                                )
+                              :
+                              // Or else, show an empty container.
+                              Container(),
+                          // This section is for showing the Text inside of the circle icon.
+                          popularProductController.totalProductCount >= 1
+                              ? Positioned(
+                                  right: 3,
+                                  top: 3,
+                                  child: BigText(
+                                    text: popularProductController
+                                        .totalProductCount
+                                        .toString(),
+                                    size: 12,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : Container(),
+                        ],
+                      ),
+                    );
+                  }),
                 ],
               ),
             ),
@@ -166,11 +194,11 @@ class PopularFoodDetailsPage extends StatelessWidget {
                               popularProductController.setQuantity(false);
                             },
                             child:
-                            Icon(Icons.remove, color: AppColors.signColor)),
+                                Icon(Icons.remove, color: AppColors.signColor)),
                         SizedBox(width: Dimensions.width4),
                         BigText(
                             text:
-                            popularProductController.inCartItem.toString()),
+                                popularProductController.inCartItem.toString()),
                         SizedBox(width: Dimensions.width4),
                         GestureDetector(
                             onTap: () {

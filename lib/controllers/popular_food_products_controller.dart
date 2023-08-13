@@ -112,7 +112,8 @@ class PopularFoodProductsController extends GetxController {
     return _cart.totalProductCount;
     }
 
-    List<CartModel> get getItems{
-    return _cart.getItems;
-    }
+    //This will not be necessary. I will get to cart controller directly from the cart page.
+    // List<CartModel> get getItems{
+    // return _cart.getItems;
+    // }
 }
