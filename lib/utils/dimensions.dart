@@ -58,4 +58,7 @@ static double popularFoodImgSize = screenHeight/2.2;
 //Bottom bar height
 static double bottomNavBarContainerHeight = screenHeight/7.51;
 
+// Splash screen logo image size
+static double splashScreenImg = screenHeight/3.04;
+
 }

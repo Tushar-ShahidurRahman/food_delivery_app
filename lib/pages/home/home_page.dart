@@ -13,10 +13,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   List pages = [
-    MainFoodPage(),
-    Container(child: Center(child: Text('Next page'))),
-    Container(child: Center(child: Text('Next Next page'))),
-    Container(child: Center(child: Text('Next Next Next page'))),
+    const MainFoodPage(),
+    Container(child: const Center(child: Text('Next page'))),
+    Container(child: const Center(child: Text('Next Next page'))),
+    Container(child: const Center(child: Text('Next Next Next page'))),
   ];
 
   void onTapNav(int index) {
@@ -38,8 +38,7 @@ class _HomePageState extends State<HomePage> {
           unselectedFontSize: 0,
           selectedFontSize: 0,
 
-
-          items: [
+          items: const [
         BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'home'),
         BottomNavigationBarItem(
             icon: Icon(Icons.archive_outlined), label: 'history'),

@@ -3,20 +3,24 @@ import 'package:food_delivery_app/pages/food/popular_food_details_page.dart';
 import 'package:food_delivery_app/pages/food/recommended_food_details_page.dart';
 import 'package:food_delivery_app/pages/home/home_page.dart';
 import 'package:food_delivery_app/pages/home/main_food_page.dart';
+import 'package:food_delivery_app/pages/splash/splash_screen.dart';
 import 'package:get/get.dart';
 
 class RouteHelper {
+  static const String splashPage = '/splash-page';
   static const String initial = '/';
   static const String popularFood = '/popular-food';
   static const String recommendedFood = '/recommended-food';
   static const String cartPage = '/cart-page';
 
+  static String getSplashPage() => '$splashPage';
   static String getInitial() => '$initial';
   static String getPopularFood({required int pageId, required String pageName}) => '$popularFood?pageId=$pageId&pageName=$pageName';
   static String getRecommendedFood({required int pageId, required String pageName}) => '$recommendedFood?pageId=$pageId&pageName=$pageName';
   static String getCartPage() => '$cartPage';
 
   static List<GetPage> routes = [
+    GetPage(name: splashPage, page: () => SplashScreen()),
     GetPage(name: initial, page: () => HomePage()),
     GetPage(
         name: popularFood,
