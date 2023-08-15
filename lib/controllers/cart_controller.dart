@@ -16,7 +16,10 @@ class CartController extends GetxController {
 
   Map<int, CartModel> get items => _items;
 
-  //This method is for adding item in the _items dictionary
+  //For storage and shared preference only
+  List<CartModel> storageItems = [];
+
+  //This method is for updating, removing and adding an item in the _items dictionary
   void addItem({required ProductModel product, required int itemQuantity}) {
     int _totalQuantity = 0;
     if (_items.containsKey(product.id!)) {
@@ -41,6 +44,7 @@ class CartController extends GetxController {
           );
         },
       );
+      //removing logic is here.
       if (_totalQuantity <= 0) {
         _items.remove(product.id);
       }
@@ -68,6 +72,7 @@ class CartController extends GetxController {
         );
       }
     }
+    cartRepo.addDataToSharedPreference(cartList: getItems);
     update();
   }
 
@@ -79,7 +84,7 @@ class CartController extends GetxController {
     return false;
   }
 
-  // Returns the quantity of the item.
+  // Returns the quantity of an specific item.
   int getProductQuantity(ProductModel product) {
     int _prodQuantity = 0;
     if (_items.containsKey(product.id!)) {
@@ -92,6 +97,7 @@ class CartController extends GetxController {
     return _prodQuantity;
   }
 
+  //This method is for getting the total product count added in the cart
   int get totalProductCount{
     int _totalProdCount = 0;
     _items.forEach((key, value) {
@@ -101,12 +107,14 @@ class CartController extends GetxController {
     return _totalProdCount;
   }
 
+  // This function is for returning the recent List of items saved in the _items map
   List<CartModel> get getItems{
     return _items.entries.map((e) {
       return e.value;
     }).toList();
   }
 
+  //This function is for getting the total amount of money when items added to the cart.
   int get totalAmount{
     int _total = 0;
     _items.forEach((key, value) {
@@ -115,5 +123,22 @@ class CartController extends GetxController {
 
     return _total;
   }
+
+//  I have to call the getDataFromSharedPreference from here
+//This method will be called every time the App restarts.
+List<CartModel> getCartDataFromSPInController() {
+    setItems = cartRepo.getDataFromSharedPreference();
+    return storageItems;
+}
+// setItems To StorageItems List
+set setItems(List<CartModel> cartItems) {
+    storageItems = cartItems;
+
+//    i need index. that's why i am using for loop
+  for(int i = 0; i < storageItems.length; i++) {
+    // need to modify the _items map
+    _items.putIfAbsent(storageItems[i].product!.id!, () => storageItems[i]);
+  }
+}
 
 }

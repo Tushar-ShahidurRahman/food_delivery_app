@@ -7,15 +7,20 @@ import 'package:food_delivery_app/data/repositories/popular_food_product_item_re
 import 'package:food_delivery_app/data/repositories/recommended_food_product_item_repo.dart';
 import 'package:food_delivery_app/utils/app_constants.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> init() async {
+  final sharedPreference = await SharedPreferences.getInstance();
+
+  Get.lazyPut(() => sharedPreference);
+
   // first put the Api client
   Get.lazyPut(() => ApiClient(appBaseUrl: AppConstants.BASE_URI));
 
 //  Then put the Repositories
   Get.lazyPut(() => PopularFoodProductItemRepo(apiClient: Get.find()));
   Get.lazyPut(() => RecommendedFoodProductItemRepo(apiClient: Get.find()));
-  Get.lazyPut(() => CartRepo());
+  Get.lazyPut(() => CartRepo(sharedPreference: Get.find()));
 
 // Then put the Controllers
   Get.lazyPut(() =>
