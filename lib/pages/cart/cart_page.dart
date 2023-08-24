@@ -274,6 +274,7 @@ class CartPage extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () {
                         // popularProductController.addItem(product);
+                        cartController.addCartHistoryDataToSPInController();
                       },
                       child: BigText(
                         text: 'Check out',

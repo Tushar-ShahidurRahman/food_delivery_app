@@ -72,6 +72,7 @@ class CartController extends GetxController {
         );
       }
     }
+    //sending data to shared preference from here.
     cartRepo.addDataToSharedPreference(cartList: getItems);
     update();
   }
@@ -133,12 +134,27 @@ List<CartModel> getCartDataFromSPInController() {
 // setItems To StorageItems List
 set setItems(List<CartModel> cartItems) {
     storageItems = cartItems;
-
 //    i need index. that's why i am using for loop
   for(int i = 0; i < storageItems.length; i++) {
-    // need to modify the _items map
+    // need to modify the _items map. Because after restarting the app, _items will be empty. This
+    // line of code will repopulate the _items map with existing items remained in the cart.
     _items.putIfAbsent(storageItems[i].product!.id!, () => storageItems[i]);
   }
+}
+
+//This method is for call addHistory data to sp from the controller. And then clearing the _items map. It is called from check out.
+void addCartHistoryDataToSPInController() {
+    cartRepo.addCartHistoryDataToSharedPreference();
+    clear();
+}
+
+  void clear() {
+    _items = {};
+    update();
+  }
+
+List<CartModel> getCartHistoryList() {
+    return cartRepo.getCartHistoryDataFromSharedPreference();
 }
 
 }

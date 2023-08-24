@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/controllers/cart_controller.dart';
 import 'package:food_delivery_app/controllers/popular_food_products_controller.dart';
 import 'package:food_delivery_app/controllers/recommended_food_product_controller.dart';
 
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Get.find<CartController>().getCartDataFromSPInController();
     return GetBuilder<PopularFoodProductsController>(builder: (_) {
       return GetBuilder<RecommendedFoodProductsController>(builder: (_) {
         return GetMaterialApp(
